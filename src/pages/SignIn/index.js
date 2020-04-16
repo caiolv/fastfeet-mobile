@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image } from 'react-native';
+import { Image, StatusBar } from 'react-native';
 
 import logo from '~/assets/logo.png';
 
@@ -13,29 +13,32 @@ export default function SignIn({ navigation }) {
   function handleSubmit() {}
 
   return (
-    <Container>
-      <Image source={logo} />
-      <Form>
-        <FormInput
-          icon="mail-outline"
-          keyboardType="email-address"
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="Informe seu ID de cadastro"
-          returnKeyType="send"
-          onSubmitEditing={handleSubmit}
-          value={email}
-          onChangeText={setEmail}
-        />
+    <>
+      <StatusBar barStyle="light-content" backgroundColor="#7d40e7" />
+      <Container>
+        <Image source={logo} />
+        <Form>
+          <FormInput
+            icon="mail-outline"
+            keyboardType="email-address"
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Informe seu ID de cadastro"
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit}
+            value={email}
+            onChangeText={setEmail}
+          />
 
-        <SubmitButton
-          loading={loading}
-          onPress={handleSubmit}
-          buttonType="success"
-        >
-          Acessar
-        </SubmitButton>
-      </Form>
-    </Container>
+          <SubmitButton
+            loading={loading}
+            onPress={handleSubmit}
+            buttonType="success"
+          >
+            Entrar no sistema
+          </SubmitButton>
+        </Form>
+      </Container>
+    </>
   );
 }
