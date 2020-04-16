@@ -1,9 +1,9 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 
-import Routes from './routes';
+import '~/config/ReactotronConfig';
 
-import './config/ReactotronConfig';
+import Routes from './routes';
 
 export default function App() {
   return <Routes />;
