@@ -1,4 +1,5 @@
 import React from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
 import createRouter from './routes';
@@ -8,5 +9,9 @@ export default function App() {
 
   const Routes = createRouter(signed);
 
-  return <Routes />;
+  return (
+    <SafeAreaProvider>
+      <Routes />
+    </SafeAreaProvider>
+  );
 }

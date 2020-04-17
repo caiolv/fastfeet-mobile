@@ -14,11 +14,8 @@ import {
   CourierName,
 } from './styles';
 
-export default function Deliveries() {
+export default function Profile() {
   const courier = useSelector((state) => state.user.profile);
-
-  function handleLogout() {}
-
   return (
     <Container>
       <Header>
@@ -26,23 +23,17 @@ export default function Deliveries() {
           <Avatar />
           <Welcome>
             <WelcomeText>Bem vindo de volta,</WelcomeText>
-            <CourierName>Lorem Ipsum</CourierName>
+            <CourierName>{courier.name}</CourierName>
           </Welcome>
         </Courier>
-        <Icon
-          onPress={handleLogout}
-          name="exit-to-app"
-          color="#E74040"
-          size={25}
-        />
       </Header>
     </Container>
   );
 }
 
-Deliveries.navigationOptions = {
+Profile.navigationOptions = {
   tabBarLabel: 'Entregas',
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="reorder" size={20} color={tintColor} />
+    <Icon name="account-circle" size={20} color={tintColor} />
   ),
 };
