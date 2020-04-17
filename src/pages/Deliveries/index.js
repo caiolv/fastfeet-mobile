@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { format, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import Avatar from '~/components/Avatar';
+import DeliveryItem from '~/components/DeliveryItem';
+
+import api from '~/services/api';
 
 import { signOut } from '~/store/modules/auth/actions';
 
@@ -19,12 +24,41 @@ import {
   FilterButtonContainer,
   FilterButton,
   FilterText,
+  List,
 } from './styles';
 
 export default function Deliveries() {
   const dispatch = useDispatch();
   const courier = useSelector((state) => state.user.profile);
+
   const [deliveriedFilter, setDeliveriedFilter] = useState(false);
+  const [deliveries, setDeliveries] = useState([]);
+
+  function formatDates(data) {
+    return data.map((delivery) => ({
+      ...delivery,
+      dateFormatted: delivery.created_at
+        ? format(parseISO(delivery.created_at), 'dd/MM/yyyy', { locale: pt })
+        : null,
+    }));
+  }
+
+  useEffect(() => {
+    async function loadDeliveries() {
+      const response = await api.get(`courier/${courier.id}/deliveries`, {
+        params: {
+          delivered: deliveriedFilter,
+        },
+      });
+
+      console.tron.log(deliveriedFilter);
+
+      const data = formatDates(response.data);
+
+      setDeliveries(data);
+    }
+    loadDeliveries();
+  }, [courier.id, deliveriedFilter]);
 
   function handleLogout() {
     dispatch(signOut());
@@ -62,6 +96,14 @@ export default function Deliveries() {
           </FilterButton>
         </FilterContainer>
       </ContentHeader>
+      <List
+        data={deliveries}
+        renderItem={({ item }) => <DeliveryItem data={item} />}
+        keyExtractor={(item) => item.id.toString()}
+        // onEndReached={loadDelivery}
+        // onEndReachedThreshold={0.1}
+        // ListFooterComponent={renderLoading}
+      />
     </Container>
   );
 }

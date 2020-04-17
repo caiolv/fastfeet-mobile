@@ -5,7 +5,6 @@ import { RectButton } from 'react-native-gesture-handler';
 export const Container = styled(SafeAreaView)`
   flex: 1;
   background: #fff;
-  padding: 20px;
 `;
 export const Header = styled.View`
   height: 68px;
@@ -13,6 +12,7 @@ export const Header = styled.View`
   align-items: center;
   justify-content: space-between;
   padding: 0 12.5px 0 0;
+  padding: 20px;
   margin-top: 20px;
 `;
 
@@ -33,6 +33,7 @@ export const Welcome = styled.View`
 `;
 export const WelcomeText = styled.Text`
   font-size: 12px;
+  color: #666666;
 `;
 export const CourierName = styled.Text`
   font-size: 22px;
@@ -42,6 +43,7 @@ export const CourierName = styled.Text`
 `;
 
 export const ContentHeader = styled.View`
+  padding: 0 20px;
   height: 30px;
   flex-direction: row;
   align-items: center;
@@ -76,4 +78,8 @@ export const FilterText = styled.Text`
   font-weight: bold;
   color: ${(props) => (props.active ? '#7d40e7' : '#999')};
   text-decoration-style: solid;
+`;
+export const List = styled.FlatList`
+  margin-top: 10px;
+  padding: 1px 20px;
 `;

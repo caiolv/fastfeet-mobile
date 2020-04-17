@@ -3,7 +3,7 @@ import randomColor from 'randomcolor';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { signInSuccess, signFailure } from './actions';
 
-import api from '../../../services';
+import api from '../../../services/api';
 
 export function* signIn({ payload }) {
   try {
