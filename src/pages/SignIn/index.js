@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { Image, StatusBar } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import logo from '~/assets/logo.png';
 
+import { signInRequest } from '~/store/modules/auth/actions';
+
 import { Container, Form, FormInput, SubmitButton } from './styles';
 
-export default function SignIn({ navigation }) {
-  const [email, setEmail] = useState('');
+export default function SignIn() {
+  const dispatch = useDispatch();
+  const [id, setId] = useState('');
 
-  const loading = false;
+  const loading = useSelector((state) => state.auth.loading);
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    dispatch(signInRequest(id));
+  }
 
   return (
     <>
@@ -20,14 +26,13 @@ export default function SignIn({ navigation }) {
         <Form>
           <FormInput
             icon="mail-outline"
-            keyboardType="email-address"
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="Informe seu ID de cadastro"
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
-            value={email}
-            onChangeText={setEmail}
+            value={id}
+            onChangeText={setId}
           />
 
           <SubmitButton
