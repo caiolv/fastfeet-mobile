@@ -8,7 +8,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Deliveries from './pages/Deliveries';
 import Profile from './pages/Profile';
 import SignIn from './pages/SignIn';
+
 import DeliveryDetails from './pages/Delivery/Details';
+import NewProblem from './pages/Delivery/NewProblem';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -24,6 +26,7 @@ export default (signedIn = false) =>
                 {
                   Deliveries,
                   DeliveryDetails,
+                  NewProblem,
                 },
                 {
                   defaultNavigationOptions: {
@@ -32,6 +35,7 @@ export default (signedIn = false) =>
                     headerLeftContainerStyle: {
                       marginLeft: 20,
                     },
+                    headerBackTitleVisible: false,
                   },
                 },
               ),

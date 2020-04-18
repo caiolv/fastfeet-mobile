@@ -20,6 +20,7 @@ import {
 
 export default function DeliveryDetails({ navigation }) {
   const {
+    id,
     product,
     recipient,
     status,
@@ -72,7 +73,11 @@ export default function DeliveryDetails({ navigation }) {
 
         <ButtonsContainer>
           <BorderContainer first>
-            <Button>
+            <Button
+              onPress={() =>
+                navigation.navigate('NewProblem', { deliveryId: id })
+              }
+            >
               <Icon name="highlight-off" size={30} color="#E74040" />
               <ButtonText>Informar Problema</ButtonText>
             </Button>
@@ -103,3 +108,7 @@ export default function DeliveryDetails({ navigation }) {
     </Background>
   );
 }
+
+DeliveryDetails.navigationOptions = {
+  title: 'Detalhes da encomenda',
+};
