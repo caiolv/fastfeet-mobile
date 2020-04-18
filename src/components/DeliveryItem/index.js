@@ -1,7 +1,6 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { parseISO, formatRelative } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
+import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import DeliveryStatus from '~/components/DeliveryStatus';
@@ -19,7 +18,10 @@ import {
   Button,
 } from './styles';
 
-export default function DeliveryItem({ data }) {
+export default function DeliveryItem({ data, navigation }) {
+  function handleNavigate() {
+    navigation.navigate('DeliveryDetails', { delivery: data });
+  }
   return (
     <Container>
       <Header>
@@ -39,7 +41,7 @@ export default function DeliveryItem({ data }) {
           <Description>{data.recipient.city}</Description>
         </Section>
         <Section>
-          <Button>
+          <Button onPress={handleNavigate}>
             <Details>Ver detalhes</Details>
           </Button>
         </Section>
@@ -53,7 +55,7 @@ DeliveryItem.propTypes = {
     id: PropTypes.number.isRequired,
     product: PropTypes.string.isRequired,
     dateFormatted: PropTypes.string.isRequired,
-    end_date: PropTypes.string.isRequired,
+    end_date: PropTypes.string,
     recipient: PropTypes.shape({
       name: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired,

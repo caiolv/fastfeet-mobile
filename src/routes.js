@@ -1,10 +1,14 @@
+import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import Deliveries from './pages/Deliveries';
 import Profile from './pages/Profile';
 import SignIn from './pages/SignIn';
+import DeliveryDetails from './pages/Delivery/Details';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -15,7 +19,30 @@ export default (signedIn = false) =>
         }),
         App: createBottomTabNavigator(
           {
-            Deliveries,
+            Delivery: {
+              screen: createStackNavigator(
+                {
+                  Deliveries,
+                  DeliveryDetails,
+                },
+                {
+                  defaultNavigationOptions: {
+                    headerTransparent: true,
+                    headerTintColor: '#FFF',
+                    headerLeftContainerStyle: {
+                      marginLeft: 20,
+                    },
+                  },
+                },
+              ),
+              navigationOptions: {
+                tabBarLabel: 'Encomendas',
+                // eslint-disable-next-line react/prop-types
+                tabBarIcon: ({ tintColor }) => (
+                  <Icon name="reorder" size={20} color={tintColor} />
+                ),
+              },
+            },
             Profile,
           },
           {

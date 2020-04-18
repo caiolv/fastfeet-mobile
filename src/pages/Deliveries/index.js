@@ -27,7 +27,7 @@ import {
   List,
 } from './styles';
 
-export default function Deliveries() {
+export default function Deliveries({ navigation }) {
   const dispatch = useDispatch();
   const courier = useSelector((state) => state.user.profile);
 
@@ -40,6 +40,14 @@ export default function Deliveries() {
       dateFormatted: delivery.created_at
         ? format(parseISO(delivery.created_at), 'dd/MM/yyyy', { locale: pt })
         : null,
+      startDateFormatted: delivery.start_date
+        ? format(parseISO(delivery.start_date), 'dd / MM / yyyy', {
+            locale: pt,
+          })
+        : '-- / -- / ----',
+      endDateFormatted: delivery.end_date
+        ? format(parseISO(delivery.end_date), 'dd / MM / yyyy', { locale: pt })
+        : '-- / -- / ----',
     }));
   }
 
@@ -98,7 +106,9 @@ export default function Deliveries() {
       </ContentHeader>
       <List
         data={deliveries}
-        renderItem={({ item }) => <DeliveryItem data={item} />}
+        renderItem={({ item }) => (
+          <DeliveryItem data={item} navigation={navigation} />
+        )}
         keyExtractor={(item) => item.id.toString()}
         // onEndReached={loadDelivery}
         // onEndReachedThreshold={0.1}
