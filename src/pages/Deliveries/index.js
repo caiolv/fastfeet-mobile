@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Avatar from '~/components/Avatar';
 import DeliveryItem from '~/components/DeliveryItem';
+import Loading from '~/components/Loading';
 
 import api from '~/services/api';
 
@@ -32,7 +33,10 @@ export default function Deliveries({ navigation }) {
   const courier = useSelector((state) => state.user.profile);
 
   const [deliveriedFilter, setDeliveriedFilter] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [deliveries, setDeliveries] = useState([]);
+  const [page, setPage] = useState(1);
 
   function formatDates(data) {
     return data.map((delivery) => ({
@@ -51,25 +55,48 @@ export default function Deliveries({ navigation }) {
     }));
   }
 
+  async function loadDeliveries() {
+    const response = await api.get(`courier/${courier.id}/deliveries`, {
+      params: {
+        delivered: deliveriedFilter,
+        page,
+      },
+    });
+
+    console.tron.log(deliveriedFilter);
+
+    const data = formatDates(response.data);
+
+    if (page > 1) setDeliveries([...deliveries, ...data]);
+    else setDeliveries(data);
+
+    setLoading(false);
+    setRefreshing(false);
+  }
+
   useEffect(() => {
-    async function loadDeliveries() {
-      const response = await api.get(`courier/${courier.id}/deliveries`, {
-        params: {
-          delivered: deliveriedFilter,
-        },
-      });
-
-      console.tron.log(deliveriedFilter);
-
-      const data = formatDates(response.data);
-
-      setDeliveries(data);
-    }
     loadDeliveries();
-  }, [courier.id, deliveriedFilter]);
+  }, [page, deliveriedFilter]);
 
   function handleLogout() {
     dispatch(signOut());
+  }
+
+  function handleNextPage() {
+    const nextPage = page + 1;
+    setPage(nextPage);
+  }
+
+  function toggleFilter() {
+    setDeliveriedFilter(!deliveriedFilter);
+    setLoading(true);
+    setPage(1);
+  }
+
+  function refreshList() {
+    setRefreshing(true);
+    setDeliveries([]);
+    loadDeliveries();
   }
 
   return (
@@ -92,28 +119,33 @@ export default function Deliveries({ navigation }) {
       <ContentHeader>
         <Title>Entregas</Title>
         <FilterContainer>
-          <FilterButton onPress={() => setDeliveriedFilter(false)}>
+          <FilterButton onPress={() => toggleFilter()}>
             <FilterButtonContainer active={!deliveriedFilter}>
               <FilterText active={!deliveriedFilter}>Pendentes</FilterText>
             </FilterButtonContainer>
           </FilterButton>
-          <FilterButton onPress={() => setDeliveriedFilter(true)}>
+          <FilterButton onPress={() => toggleFilter()}>
             <FilterButtonContainer active={deliveriedFilter}>
               <FilterText active={deliveriedFilter}>Entregues</FilterText>
             </FilterButtonContainer>
           </FilterButton>
         </FilterContainer>
       </ContentHeader>
-      <List
-        data={deliveries}
-        renderItem={({ item }) => (
-          <DeliveryItem data={item} navigation={navigation} />
-        )}
-        keyExtractor={(item) => item.id.toString()}
-        // onEndReached={loadDelivery}
-        // onEndReachedThreshold={0.1}
-        // ListFooterComponent={renderLoading}
-      />
+      {loading ? (
+        <Loading />
+      ) : (
+        <List
+          onRefresh={refreshList}
+          refreshing={refreshing}
+          data={deliveries}
+          renderItem={({ item }) => (
+            <DeliveryItem data={item} navigation={navigation} />
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          onEndReached={handleNextPage}
+          onEndReachedThreshold={0.2}
+        />
+      )}
     </Container>
   );
 }

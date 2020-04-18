@@ -11,6 +11,7 @@ import SignIn from './pages/SignIn';
 
 import DeliveryDetails from './pages/Delivery/Details';
 import NewProblem from './pages/Delivery/NewProblem';
+import DeliveryProblems from './pages/Delivery/Problems';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -27,6 +28,7 @@ export default (signedIn = false) =>
                   Deliveries,
                   DeliveryDetails,
                   NewProblem,
+                  DeliveryProblems,
                 },
                 {
                   defaultNavigationOptions: {
