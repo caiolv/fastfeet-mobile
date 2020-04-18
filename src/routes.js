@@ -39,7 +39,7 @@ export default (signedIn = false) =>
                 tabBarLabel: 'Encomendas',
                 // eslint-disable-next-line react/prop-types
                 tabBarIcon: ({ tintColor }) => (
-                  <Icon name="reorder" size={20} color={tintColor} />
+                  <Icon name="reorder" size={25} color={tintColor} />
                 ),
               },
             },

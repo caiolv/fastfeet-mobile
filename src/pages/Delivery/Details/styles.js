@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
@@ -40,11 +40,44 @@ export const Description = styled.Text`
 export const Section = styled.View`
   margin-right: 50px;
 `;
+
 export const Row = styled.View`
   flex-direction: row;
 `;
 
-export const Button = styled(RectButton)``;
+export const ButtonsContainer = styled.View`
+  box-shadow: 0px 0px 3px #0000001a;
+  background: #f8f9fd;
+  border-radius: 4px;
+  margin: 5px 20px;
+  flex-direction: row;
+`;
+
+export const BorderContainer = styled.View`
+  flex: 1;
+
+  border-left-width: 1px;
+  border-left-color: #0000001a;
+
+  ${({ first }) =>
+    first &&
+    css`
+      border-left-width: 0px;
+    `}
+`;
+
+export const Button = styled(RectButton)`
+  flex: 1;
+  align-items: center;
+  padding: 20px;
+`;
+
+export const ButtonText = styled.Text`
+  color: #999999;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 2px;
+`;
 
 export const Details = styled.Text`
   color: #7d40e7;

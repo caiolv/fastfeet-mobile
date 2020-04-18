@@ -46,6 +46,6 @@ export default function Profile() {
 Profile.navigationOptions = {
   tabBarLabel: 'Meu Perfil',
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="account-circle" size={20} color={tintColor} />
+    <Icon name="account-circle" size={25} color={tintColor} />
   ),
 };
