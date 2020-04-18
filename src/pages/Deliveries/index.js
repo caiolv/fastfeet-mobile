@@ -63,8 +63,6 @@ export default function Deliveries({ navigation }) {
       },
     });
 
-    console.tron.log(deliveriedFilter);
-
     const data = formatDates(response.data);
 
     if (page > 1) setDeliveries([...deliveries, ...data]);
@@ -87,10 +85,12 @@ export default function Deliveries({ navigation }) {
     setPage(nextPage);
   }
 
-  function toggleFilter() {
-    setDeliveriedFilter(!deliveriedFilter);
-    setLoading(true);
-    setPage(1);
+  function toggleDeliveriedFilter(value) {
+    if (deliveriedFilter !== value) {
+      setDeliveriedFilter(value);
+      setLoading(true);
+      setPage(1);
+    }
   }
 
   function refreshList() {
@@ -119,12 +119,12 @@ export default function Deliveries({ navigation }) {
       <ContentHeader>
         <Title>Entregas</Title>
         <FilterContainer>
-          <FilterButton onPress={() => toggleFilter()}>
+          <FilterButton onPress={() => toggleDeliveriedFilter(false)}>
             <FilterButtonContainer active={!deliveriedFilter}>
               <FilterText active={!deliveriedFilter}>Pendentes</FilterText>
             </FilterButtonContainer>
           </FilterButton>
-          <FilterButton onPress={() => toggleFilter()}>
+          <FilterButton onPress={() => toggleDeliveriedFilter(true)}>
             <FilterButtonContainer active={deliveriedFilter}>
               <FilterText active={deliveriedFilter}>Entregues</FilterText>
             </FilterButtonContainer>
