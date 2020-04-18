@@ -8,16 +8,16 @@ export default function TimeLine({ status }) {
     <Container>
       <Points>
         <Point
-          activer={
+          full={
             status === 'PENDENTE' ||
             status === 'RETIRADA' ||
             status === 'ENTREGUE'
           }
         />
         <Line />
-        <Point activer={status === 'RETIRADA' || status === 'ENTREGUE'} />
+        <Point full={status === 'RETIRADA' || status === 'ENTREGUE'} />
         <Line />
-        <Point activer={status === 'ENTREGUE'} />
+        <Point full={status === 'ENTREGUE'} />
       </Points>
       <Labels>
         <Label>Aguardando Retirada</Label>

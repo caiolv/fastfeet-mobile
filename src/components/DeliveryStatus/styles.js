@@ -13,16 +13,16 @@ export const Points = styled.View`
 `;
 
 export const Point = styled.View`
-  height: 16px;
-  width: 16px;
-  border: 2px solid #7d40e7;
+  height: 9px;
+  width: 9px;
+  border: 1px solid #7d40e7;
   border-radius: 8px;
-  background: ${(props) => (props.activer ? '#7D40E7' : '#fff')};
+  background: ${(props) => (props.full ? '#7D40E7' : '#fff')};
 `;
 
 export const Line = styled.View`
   flex: 1;
-  height: 2px;
+  height: 1px;
   background: #7d40e7;
 `;
 
@@ -30,12 +30,12 @@ export const Labels = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 3px;
+  margin-top: 5px;
 `;
 
 export const Label = styled.Text`
   width: 80px;
   text-align: center;
   color: #999;
-  font-size: 14px;
+  font-size: 8px;
 `;
