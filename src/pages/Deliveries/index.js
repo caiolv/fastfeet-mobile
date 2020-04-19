@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Avatar from '~/components/Avatar';
-import DeliveryItem from '~/components/DeliveryItem';
+import DeliveryItem from './DeliveryItem';
 import Loading from '~/components/Loading';
 
 import api from '~/services/api';
