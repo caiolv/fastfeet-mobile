@@ -55,6 +55,7 @@ export default function DeliveryProblems({ navigation }) {
   function refreshList() {
     setRefreshing(true);
     setProblems([]);
+    setPage(1);
     loadProblems();
   }
   return (
