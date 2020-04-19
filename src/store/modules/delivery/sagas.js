@@ -24,7 +24,7 @@ function* pickUpDelivery({ payload }) {
 
     Alert.alert('Sucesso!', 'Retirada confirmada com sucesso!');
   } catch (err) {
-    Alert.alert('Erro', 'Houve um erro ao confirmar a retirada');
+    Alert.alert('Erro', err.response.data.error);
   }
 }
 function* finishDelivery({ payload }) {
@@ -45,9 +45,12 @@ function* finishDelivery({ payload }) {
     };
     yield put(finishDeliverySuccess(data));
 
+    yield put(NavigationActions.navigate({ routeName: 'DeliveryDetails' }));
+
     Alert.alert('Sucesso!', 'Entrega confirmada com sucesso!');
   } catch (err) {
-    Alert.alert('Erro', 'Houve um erro ao confirmar a entrega');
+    console.tron.log(err);
+    Alert.alert('Erro', err.response.data.error);
   }
 }
 

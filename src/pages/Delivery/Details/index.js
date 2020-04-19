@@ -106,9 +106,9 @@ export default function DeliveryDetails({ navigation }) {
               <ButtonText>Visualizar Problemas</ButtonText>
             </Button>
           </BorderContainer>
-          {!end_date && (
+          {status !== 'ENTREGUE' && (
             <BorderContainer>
-              {start_date ? (
+              {status === 'RETIRADA' ? (
                 <Button onPress={() => navigation.navigate('ConfirmDelivery')}>
                   <Icon name="check-circle" size={30} color="#7D40E7" />
                   <ButtonText>Confirmar Entrega</ButtonText>

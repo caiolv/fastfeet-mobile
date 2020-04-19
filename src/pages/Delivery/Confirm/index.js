@@ -30,7 +30,6 @@ export default function ConfirmDelivery({ navigation }) {
     });
 
     dispatch(finishDeliveryRequest(delivery.id, dataFile));
-    navigation.navigate('DeliveryDetails');
   }
 
   async function handletakePicture() {

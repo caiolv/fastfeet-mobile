@@ -23,10 +23,7 @@ export function* signIn({ payload }) {
 
     // history.push('/deliveries');
   } catch (err) {
-    Alert.alert(
-      'Falha na autenticação',
-      'Houve um erro no login, verifique seus dados.',
-    );
+    Alert.alert('Falha na autenticação', err.response.data.error);
     // toast.error('Falha na autenticação, verifique seus dados.');
     yield put(signFailure());
   }

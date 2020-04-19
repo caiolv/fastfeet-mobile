@@ -22,8 +22,8 @@ export default function NewProblem({ navigation }) {
         'O problema da entrega foi informado com sucesso.',
       );
       navigation.navigate('DeliveryDetails');
-    } catch (e) {
-      Alert.alert('Ocorreu um erro ao enviar o erro.');
+    } catch (err) {
+      Alert.alert('Erro', err.response.data.error);
     }
   }
 
