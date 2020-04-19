@@ -12,6 +12,7 @@ import SignIn from './pages/SignIn';
 import DeliveryDetails from './pages/Delivery/Details';
 import NewProblem from './pages/Delivery/NewProblem';
 import DeliveryProblems from './pages/Delivery/Problems';
+import ConfirmDelivery from './pages/Delivery/Confirm';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -29,6 +30,7 @@ export default (signedIn = false) =>
                   DeliveryDetails,
                   NewProblem,
                   DeliveryProblems,
+                  ConfirmDelivery,
                 },
                 {
                   defaultNavigationOptions: {

@@ -96,6 +96,7 @@ export default function Deliveries({ navigation }) {
   function refreshList() {
     setRefreshing(true);
     setDeliveries([]);
+    setPage(1);
     loadDeliveries();
   }
 

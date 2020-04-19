@@ -1,6 +1,8 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import api from '~/services/api';
 
 import { Background, HeaderBackground } from '~/components/Background';
 
@@ -19,6 +21,7 @@ import {
 } from './styles';
 
 export default function DeliveryDetails({ navigation }) {
+  const delivery = navigation.getParam('delivery');
   const {
     id,
     product,
@@ -28,10 +31,21 @@ export default function DeliveryDetails({ navigation }) {
     endDateFormatted,
     start_date,
     end_date,
-  } = navigation.getParam('delivery');
+  } = delivery;
 
   const streetNumber = `${recipient.street}, ${recipient.number}`;
   const cityState = `${recipient.city} - ${recipient.state}`;
+
+  async function handlePickUp() {
+    try {
+      await api.put(`/delivery/${id}/status`, {
+        start_date: new Date(),
+      });
+      Alert.alert('Sucesso!', 'Retirafa confirmada com sucesso!');
+    } catch (err) {
+      Alert.alert('Erro!', 'Não foi possível confirmar a retirada.');
+    }
+  }
 
   return (
     <Background>
@@ -98,12 +112,16 @@ export default function DeliveryDetails({ navigation }) {
           {!end_date && (
             <BorderContainer>
               {start_date ? (
-                <Button>
+                <Button
+                  onPress={() =>
+                    navigation.navigate('ConfirmDelivery', { deliveryId: id })
+                  }
+                >
                   <Icon name="check-circle" size={30} color="#7D40E7" />
                   <ButtonText>Confirmar Entrega</ButtonText>
                 </Button>
               ) : (
-                <Button>
+                <Button onPress={handlePickUp}>
                   <Icon name="call-missed-outgoing" size={30} color="#7D40E7" />
                   <ButtonText>Retirar Entrega</ButtonText>
                 </Button>
