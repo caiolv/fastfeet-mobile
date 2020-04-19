@@ -6,7 +6,7 @@ export const Background = styled(SafeAreaView)`
   flex: 1;
   position: relative;
   background: #fff;
-  padding: 110px 0;
+  padding: 110px 0 0;
 `;
 
 export const HeaderBackground = styled.View`

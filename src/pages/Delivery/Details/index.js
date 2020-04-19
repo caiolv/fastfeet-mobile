@@ -83,7 +83,14 @@ export default function DeliveryDetails({ navigation }) {
             </Button>
           </BorderContainer>
           <BorderContainer>
-            <Button>
+            <Button
+              onPress={() =>
+                navigation.navigate('DeliveryProblems', {
+                  deliveryId: id,
+                  title: product,
+                })
+              }
+            >
               <Icon name="info-outline" size={30} color="#E7BA40" />
               <ButtonText>Visualizar Problemas</ButtonText>
             </Button>
