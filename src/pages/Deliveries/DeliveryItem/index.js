@@ -1,7 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import { storeDelivery } from '~/store/modules/delivery/actions';
 
 import DeliveryStatus from '~/components/DeliveryStatus';
 
@@ -18,27 +20,30 @@ import {
   Button,
 } from './styles';
 
-export default function DeliveryItem({ data, navigation }) {
+export default function DeliveryItem({ delivery, navigation }) {
+  const dispatch = useDispatch();
+
   function handleNavigate() {
-    navigation.navigate('DeliveryDetails', { delivery: data });
+    dispatch(storeDelivery({ ...delivery }));
+    navigation.navigate('DeliveryDetails');
   }
   return (
     <Container>
       <Header>
         <Info>
           <Icon name="local-shipping" size={22} color="#7d40e7" />
-          <Product>{data.product}</Product>
+          <Product>{delivery.product}</Product>
         </Info>
-        <DeliveryStatus status={data.status} />
+        <DeliveryStatus status={delivery.status} />
       </Header>
       <Content>
         <Section>
           <Label>Data</Label>
-          <Description>{data.dateFormatted}</Description>
+          <Description>{delivery.dateFormatted}</Description>
         </Section>
         <Section>
           <Label>Cidade</Label>
-          <Description>{data.recipient.city}</Description>
+          <Description>{delivery.recipient.city}</Description>
         </Section>
         <Section>
           <Button onPress={handleNavigate}>
@@ -51,7 +56,7 @@ export default function DeliveryItem({ data, navigation }) {
 }
 
 DeliveryItem.propTypes = {
-  data: PropTypes.shape({
+  delivery: PropTypes.shape({
     id: PropTypes.number.isRequired,
     product: PropTypes.string.isRequired,
     dateFormatted: PropTypes.string.isRequired,

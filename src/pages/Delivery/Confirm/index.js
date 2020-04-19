@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { Alert } from 'react-native';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import api from '~/services/api';
+import { finishDeliveryRequest } from '~/store/modules/delivery/actions';
 
 import { Background, HeaderBackground } from '~/components/Background';
 
@@ -16,30 +15,22 @@ import {
   Signature,
 } from './styles';
 
-export default function NewProblem({ navigation }) {
-  const deliveryId = navigation.getParam('deliveryId');
+export default function ConfirmDelivery({ navigation }) {
+  const dispatch = useDispatch();
+  const delivery = useSelector((state) => state.delivery.stored);
   const [pictureUri, setPictureUri] = useState('');
   const cameraRef = useRef(null);
 
   async function handleSubmit() {
-    try {
-      const dataFile = new FormData();
-      dataFile.append('file', {
-        type: 'image/jpg',
-        uri: pictureUri,
-        name: 'signature.jpg',
-      });
+    const dataFile = new FormData();
+    dataFile.append('file', {
+      type: 'image/jpg',
+      uri: pictureUri,
+      name: 'signature.jpg',
+    });
 
-      const pictureResponse = await api.post('files', dataFile);
-      await api.put(`/delivery/${deliveryId}/status`, {
-        end_date: new Date(),
-        signature_id: pictureResponse.data.id,
-      });
-
-      navigation.navigate('DeliveryDetails');
-    } catch (e) {
-      Alert.alert('Ocorreu um erro ao enviar o erro.');
-    }
+    dispatch(finishDeliveryRequest(delivery.id, dataFile));
+    navigation.navigate('DeliveryDetails');
   }
 
   async function handletakePicture() {
@@ -75,10 +66,6 @@ export default function NewProblem({ navigation }) {
   );
 }
 
-NewProblem.navigationOptions = {
+ConfirmDelivery.navigationOptions = {
   title: 'Confirmar entrega',
-};
-
-NewProblem.propTypes = {
-  deliveryId: PropTypes.number.isRequired,
 };

@@ -1,7 +1,9 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Alert, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { pickUpDeliveryRequest } from '~/store/modules/delivery/actions';
 import api from '~/services/api';
 
 import { Background, HeaderBackground } from '~/components/Background';
@@ -21,7 +23,9 @@ import {
 } from './styles';
 
 export default function DeliveryDetails({ navigation }) {
-  const delivery = navigation.getParam('delivery');
+  const dispatch = useDispatch();
+  const delivery = useSelector((state) => state.delivery.stored);
+
   const {
     id,
     product,
@@ -37,14 +41,7 @@ export default function DeliveryDetails({ navigation }) {
   const cityState = `${recipient.city} - ${recipient.state}`;
 
   async function handlePickUp() {
-    try {
-      await api.put(`/delivery/${id}/status`, {
-        start_date: new Date(),
-      });
-      Alert.alert('Sucesso!', 'Retirafa confirmada com sucesso!');
-    } catch (err) {
-      Alert.alert('Erro!', 'Não foi possível confirmar a retirada.');
-    }
+    dispatch(pickUpDeliveryRequest(id));
   }
 
   return (
@@ -112,11 +109,7 @@ export default function DeliveryDetails({ navigation }) {
           {!end_date && (
             <BorderContainer>
               {start_date ? (
-                <Button
-                  onPress={() =>
-                    navigation.navigate('ConfirmDelivery', { deliveryId: id })
-                  }
-                >
+                <Button onPress={() => navigation.navigate('ConfirmDelivery')}>
                   <Icon name="check-circle" size={30} color="#7D40E7" />
                   <ButtonText>Confirmar Entrega</ButtonText>
                 </Button>

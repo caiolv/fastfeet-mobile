@@ -11,6 +11,7 @@ import Loading from '~/components/Loading';
 import api from '~/services/api';
 
 import { signOut } from '~/store/modules/auth/actions';
+import { resetDelivery } from '~/store/modules/delivery/actions';
 
 import {
   Container,
@@ -31,6 +32,9 @@ import {
 export default function Deliveries({ navigation }) {
   const dispatch = useDispatch();
   const courier = useSelector((state) => state.user.profile);
+  const { pickedup, delivered, stored } = useSelector(
+    (state) => state.delivery,
+  );
 
   const [deliveriedFilter, setDeliveriedFilter] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -75,6 +79,18 @@ export default function Deliveries({ navigation }) {
   useEffect(() => {
     loadDeliveries();
   }, [page, deliveriedFilter]);
+
+  useEffect(() => {
+    const deliveriesUpdated = deliveries.map((deliveryItem) => {
+      if (deliveryItem.id === stored.id) {
+        return stored;
+      }
+      return deliveryItem;
+    });
+    setDeliveries(deliveriesUpdated);
+
+    dispatch(resetDelivery());
+  }, [pickedup, delivered]);
 
   function handleLogout() {
     dispatch(signOut());
@@ -140,7 +156,7 @@ export default function Deliveries({ navigation }) {
           refreshing={refreshing}
           data={deliveries}
           renderItem={({ item }) => (
-            <DeliveryItem data={item} navigation={navigation} />
+            <DeliveryItem delivery={item} navigation={navigation} />
           )}
           keyExtractor={(item) => item.id.toString()}
           onEndReached={handleNextPage}
@@ -153,6 +169,7 @@ export default function Deliveries({ navigation }) {
 
 Deliveries.navigationOptions = {
   tabBarLabel: 'Entregas',
+  // eslint-disable-next-line react/prop-types
   tabBarIcon: ({ tintColor }) => (
     <Icon name="reorder" size={20} color={tintColor} />
   ),
