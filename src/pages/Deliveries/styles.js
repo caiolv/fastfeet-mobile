@@ -1,6 +1,8 @@
-import styled, { css } from 'styled-components/native';
+import styled from 'styled-components/native';
 import SafeAreaView from 'react-native-safe-area-view';
 import { RectButton } from 'react-native-gesture-handler';
+
+import RobotoText from '~/components/RobotoText';
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
@@ -31,11 +33,11 @@ export const Welcome = styled.View`
   justify-content: center;
   margin-left: 12px;
 `;
-export const WelcomeText = styled.Text`
+export const WelcomeText = styled(RobotoText)`
   font-size: 12px;
   color: #666666;
 `;
-export const CourierName = styled.Text`
+export const CourierName = styled(RobotoText)`
   font-size: 22px;
   font-weight: bold;
   line-height: 29px;
@@ -51,7 +53,7 @@ export const ContentHeader = styled.View`
   margin-top: 20px;
 `;
 
-export const Title = styled.Text`
+export const Title = styled(RobotoText)`
   color: #444444;
   font-size: 22px;
   font-weight: bold;
@@ -73,7 +75,7 @@ export const FilterButtonContainer = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${({ active }) => (active ? '#7d40e7' : 'transparent')};
 `;
-export const FilterText = styled.Text`
+export const FilterText = styled(RobotoText)`
   font-size: 12px;
   font-weight: bold;
   color: ${(props) => (props.active ? '#7d40e7' : '#999')};

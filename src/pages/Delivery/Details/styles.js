@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
+import RobotoText from '~/components/RobotoText';
+
 export const Container = styled.View`
   box-shadow: 0px 0px 3px #0000001a;
   padding: 10px 15px 0;
@@ -15,21 +17,21 @@ export const Header = styled.View`
   margin-bottom: 0.5px;
 `;
 
-export const Title = styled.Text`
+export const Title = styled(RobotoText)`
   font-size: 14px;
   color: #7d40e7;
   font-weight: bold;
   margin-left: 10px;
 `;
 
-export const Label = styled.Text`
+export const Label = styled(RobotoText)`
   font-size: 14px;
   font-weight: bold;
   color: #999;
   text-transform: uppercase;
   margin-top: 5px;
 `;
-export const Description = styled.Text`
+export const Description = styled(RobotoText)`
   font-size: 12px;
   color: #666;
   line-height: 26px;
@@ -72,14 +74,14 @@ export const Button = styled(RectButton)`
   padding: 20px;
 `;
 
-export const ButtonText = styled.Text`
+export const ButtonText = styled(RobotoText)`
   color: #999999;
   font-size: 12px;
   text-align: center;
   margin-top: 2px;
 `;
 
-export const Details = styled.Text`
+export const Details = styled(RobotoText)`
   color: #7d40e7;
   font-size: 12px;
   font-weight: bold;

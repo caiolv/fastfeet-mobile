@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { RectButton } from 'react-native-gesture-handler';
 
+import RobotoText from '~/components/RobotoText';
+
 const COLOR = {
   success: '#82BF18',
   danger: '#E74040',
@@ -16,7 +18,7 @@ export const Container = styled(RectButton)`
   justify-content: center;
 `;
 
-export const Text = styled.Text`
+export const Text = styled(RobotoText)`
   color: #fff;
   font-weight: bold;
   font-size: 16px;

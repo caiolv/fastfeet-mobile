@@ -1,10 +1,12 @@
 import styled from 'styled-components/native';
 
+import RobotoText from '~/components/RobotoText';
+
 export const Container = styled.View`
   height: 100%;
 `;
 
-export const Title = styled.Text`
+export const Title = styled(RobotoText)`
   font-size: 18px;
   font-weight: bold;
   color: #fff;

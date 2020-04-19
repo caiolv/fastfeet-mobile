@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
 
+import RobotoText from '~/components/RobotoText';
+
 export const Container = styled.View`
   margin-top: 24px;
   margin-bottom: 6.5px;
@@ -33,7 +35,7 @@ export const Labels = styled.View`
   margin-top: 5px;
 `;
 
-export const Label = styled.Text`
+export const Label = styled(RobotoText)`
   width: 80px;
   text-align: center;
   color: #999;
