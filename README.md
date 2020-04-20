@@ -7,7 +7,7 @@
 <p align="center">Aplicativo do projeto de entrega de encomendas.</p>
 
 ## 🚀 Instalação e execução
-⚠️ Atenção: Projeto desenvolvido apenas pensando no iOS.
+⚠️ Atenção: Projeto desenvolvido visando apenas o iOS.
 1. Clone esse repositório
 ```bash
 git clone https://github.com/caiolv/gostack-fastfeet-mobile.git
