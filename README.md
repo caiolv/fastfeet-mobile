@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="GoStack" src=".github/logo.svg" width="300px" />
+  <img alt="FastFeet" src=".github/logo.svg" width="300px" />
 </h1>
 
 <h3 align="center">FastFeet - Mobile App</h3>
